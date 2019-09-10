@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>评分</title>
+	<style>
+		body,
+		h1 {
+			margin: 0;
+			padding: 0;
+			-webkit-font-smoothing: antialiased;
+		}
+
+		.starts {
+			overflow: hidden;
+		}
+
+		.starts span {
+			display: block;
+			float: left;
+			/* padding: 3px; */
+		}
+	</style>
+	<link rel="stylesheet" type="text/css" href="pingfen.css" />
+</head>
+
+<body>
+	<div class="wrap">
+		<div class="baidu">
+			<div class="caption">
+				<h1></h1>
+				<span>总体评价</span>
+			</div>
+			<div class="context">
+				<ul class="starts">
+					<li class="xx2"></li>
+					<li class="xx2"></li>
+					<li class="xx2"></li>
+					<li class="xx2"></li>
+					<li class="xx2"></li>
+				</ul>
+
+				<div class="info">11</div>
+			</div>
+			<div class="tips">
+				小提示：点击星星就能打分
+			</div>
+		</div>
+	</div>
+
+	<script>
+		/*
+			xx2 -> 空星
+			xx -> 有星
+			xx3 -> 透明星
+		*/
+		let lis = document.querySelectorAll(".starts li");
+		let info = document.getElementsByClassName("info");
+		let arr = ['极差', '一般', '不错', '推荐', '力推'];
+		for (var i = 0; i < lis.length; i++) {
+			lis[i].index = i;
+			lis[i].onmouseover = function () {
+				for (var i = 0; i < lis.length; i++) {
+					lis[i].className = 'xx2'
+					for (j = 0; j <= this.index; j++) {
+						info[0].style.display = 'block';
+						info[0].innerText = arr[this.index];
+						if (this.index > 1) {
+							lis[j].className = 'xx'
+						} else {
+							lis[j].className = 'xx3'
+						}
+					}
+				}
+			}
+			lis[i].onmouseout = function () {
+				for (var i = 0; i < lis.length; i++) {
+					lis[i].className = 'xx2'
+					info[0].style.display = 'none'
+				}
+			}
+			lis[i].onclick = function () {
+				for (i = 0; i < lis.length; i++) {
+					let a = this.index
+					lis[i].onmouseout = function () {
+						for (i = 0; i < lis.length; i++) {
+							lis[i].className = 'xx2'
+							for (k = 0; k <= a; k++) {
+								if (this.index > 1) {
+									lis[k].className = 'xx'
+								} else {
+									lis[k].className = 'xx3'
+								}
+								info[0].innerText = arr[k];
+							}
+						}
+					}
+				}
+			}
+		}
+	</script>
+</body>
+
+</html>
